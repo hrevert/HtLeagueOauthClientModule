@@ -32,7 +32,7 @@ $facebookProvider = $serviceLocator->get('HtLeagueOauthClientModule\Oauth2Client
 ```
 
 ##### Creating custom oauth2 providers
-1. Create a class implementing `League\OAuth2\Client\Provider\ProviderInterface`.
+* Create a class implementing `League\OAuth2\Client\Provider\ProviderInterface`.
 
 ```php
 class MyProvider implements League\OAuth2\Client\Provider\ProviderInterface
@@ -41,7 +41,7 @@ class MyProvider implements League\OAuth2\Client\Provider\ProviderInterface
 }
 ```
 
-2. Inform Oauth2 client manager about the new provider
+* Inform Oauth2 client manager about the new provider
 ```php
 return [
     Module::CONFIG => [
@@ -54,7 +54,7 @@ return [
 ];
 ```
 
-3. Use the provider
+* Use the provider
 ```php
 $myProvider = $serviceLocator->get('HtLeagueOauthClientModule\Oauth2ClientManager')->get('my_provider');
 ```
