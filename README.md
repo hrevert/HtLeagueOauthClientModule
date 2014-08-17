@@ -1,5 +1,7 @@
 HtLeagueOauthClientModule
 ==========================
+[![Build Status](https://travis-ci.org/hrevert/HtLeagueOauthClientModule.svg)](https://travis-ci.org/hrevert/HtLeagueOauthClientModule)
+
 A Zend Framework 2 module to integrate [oauth2-client](https://github.com/thephpleague/oauth2-client) and [oauth1-client](https://github.com/thephpleague/oauth1-client) library from the [thephpleague](https://github.com/thephpleague).
 
 
