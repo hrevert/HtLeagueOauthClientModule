@@ -8,7 +8,7 @@
          backupGlobals="false"
          syntaxCheck="true"
 >
-    <testsuite name="HtCountryModuleTest">
+    <testsuite name="HtLeagueOauthClientModuleTest">
         <directory>tests/HtLeagueOauthClientModuleTest</directory>
     </testsuite>
     <filter>
