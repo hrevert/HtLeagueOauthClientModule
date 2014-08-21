@@ -9,7 +9,7 @@ class Oauth2ClientManagerTest extends \PHPUnit_Framework_TestCase
     {
         $oauth2ClientManager = new Oauth2ClientManager;
 
-        $plugin = $this->getMock('League\OAuth2\Client\Provider\ProviderInterface');
+        $plugin = $this->getMock('League\OAuth2\Client\Provider\IdentityProvider');
         $this->assertNull($oauth2ClientManager->validatePlugin($plugin));
 
         $this->setExpectedException('HtLeagueOauthClientModule\Exception\InvalidArgumentException');
