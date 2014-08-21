@@ -46,6 +46,10 @@ class MyProvider implements League\OAuth2\Client\Provider\ProviderInterface
 
 * Inform Oauth2 client manager about the new provider
 ```php
+// in config/module.config.php
+
+use HtLeagueOauthClientModule\Module;
+
 return [
     Module::CONFIG => [
         'oauth2_client_manager' => [
