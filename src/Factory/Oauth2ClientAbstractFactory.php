@@ -10,8 +10,10 @@ class Oauth2ClientAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $oauth2ClientManager, $name, $requestedName)
     {
+        $serviceLocator = $oauth2ClientManager->getServiceLocator();
+
         $class = $this->getClass($name);
 
         if (!class_exists($class)) {
@@ -27,8 +29,10 @@ class Oauth2ClientAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $oauth2ClientManager, $name, $requestedName)
     {
+        $serviceLocator = $oauth2ClientManager->getServiceLocator();
+
         $class = $this->getClass($name);
 
         $configKey = strtolower($requestedName);
