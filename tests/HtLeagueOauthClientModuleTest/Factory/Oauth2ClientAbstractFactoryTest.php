@@ -4,6 +4,7 @@ namespace HtLeagueOauthClientModuleTest\Factory;
 use HtLeagueOauthClientModule\Factory\Oauth2ClientAbstractFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use HtLeagueOauthClientModule\Module;
+use HtLeagueOauthClientModule\Oauth2ClientManager;
 
 class Oauth2ClientAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,9 +20,9 @@ class Oauth2ClientAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCantCreateServiceWhenClassDoesNotExist()
     {
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $pluginManager = $this->getMock('HtLeagueOauthClientModule\Oauth2ClientManager');
 
-        $this->assertFalse($this->abstractFactory->canCreateServiceWithName($serviceLocator, 'FooBar', 'FooBar'));
+        $this->assertFalse($this->abstractFactory->canCreateServiceWithName($pluginManager, 'FooBar', 'FooBar'));
     }
 
     public function testCantCreateServiceWhenProviderConfigDoesNotExist()
@@ -32,7 +33,10 @@ class Oauth2ClientAbstractFactoryTest extends \PHPUnit_Framework_TestCase
             ->with('Config')
             ->will($this->returnValue([]));
 
-        $this->assertFalse($this->abstractFactory->canCreateServiceWithName($serviceLocator, 'Facebook', 'Facebook'));
+        $pluginManager = new Oauth2ClientManager;
+        $pluginManager->setServiceLocator($serviceLocator);
+
+        $this->assertFalse($this->abstractFactory->canCreateServiceWithName($pluginManager, 'Facebook', 'Facebook'));
     }
 
     public function testCantCreateServiceWhenProviderConfigNotExists()
@@ -43,7 +47,10 @@ class Oauth2ClientAbstractFactoryTest extends \PHPUnit_Framework_TestCase
             ->with('Config')
             ->will($this->returnValue([Module::CONFIG => ['oauth2_clients' => ['facebook' =>  []]]]));
 
-        $this->assertTrue($this->abstractFactory->canCreateServiceWithName($serviceLocator, 'Facebook', 'Facebook'));
+        $pluginManager = new Oauth2ClientManager;
+        $pluginManager->setServiceLocator($serviceLocator);
+
+        $this->assertTrue($this->abstractFactory->canCreateServiceWithName($pluginManager, 'Facebook', 'Facebook'));
     }
 
     public function testCreateService()
