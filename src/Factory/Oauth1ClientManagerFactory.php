@@ -4,7 +4,7 @@ namespace HtLeagueOauthClientModule\Factory;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use HtLeagueOauthClientModule\Module;
-use HtLeagueOauthClientModule\Oauth2ClientManager;
+use HtLeagueOauthClientModule\Oauth1ClientManager;
 use Zend\ServiceManager\Config;
 
 class Oauth1ClientManagerFactory implements FactoryInterface
