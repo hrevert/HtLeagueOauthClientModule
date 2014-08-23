@@ -65,3 +65,59 @@ return [
 ```php
 $myProvider = $serviceLocator->get('HtLeagueOauthClientModule\Oauth2ClientManager')->get('my_provider');
 ```
+
+### For Oauth3
+```php
+// in config/module.config.php
+
+use HtLeagueOauthClientModule\Module;
+
+return [
+    Module::CONFIG => [
+        'oauth3_clients' => [
+            'twitter' => [
+                'identifier' => 'your-identifier',
+                'secret' => 'your-secret',
+                'callback_uri' => 'http://your-callback-uri/',        
+            ],
+        ],
+    ],
+];
+
+```
+
+```php
+$twitterProvider = $serviceLocator->get('HtLeagueOauthClientModule\Oauth1ClientManager')->get('twitter');
+```
+
+##### Creating custom oauth2 providers
+* Create a class extending `League\OAuth1\Client\Server\Server`.
+
+```php
+class MyProvider extends League\OAuth1\Client\Server\Server
+{
+    // .....
+}
+```
+
+* Inform Oauth1 client manager about the new provider
+```php
+// in config/module.config.php
+
+use HtLeagueOauthClientModule\Module;
+
+return [
+    Module::CONFIG => [
+        'oauth1_client_manager' => [
+            'factories' => [
+                'my_provider' => 'MyProviderFactory',
+            ], 
+        ],
+    ],
+];
+```
+
+* Use the provider
+```php
+$myProvider = $serviceLocator->get('HtLeagueOauthClientModule\Oauth1ClientManager')->get('my_provider');
+```
