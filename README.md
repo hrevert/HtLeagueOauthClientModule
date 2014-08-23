@@ -74,7 +74,7 @@ use HtLeagueOauthClientModule\Module;
 
 return [
     Module::CONFIG => [
-        'oauth3_clients' => [
+        'oauth1_clients' => [
             'twitter' => [
                 'identifier' => 'your-identifier',
                 'secret' => 'your-secret',
