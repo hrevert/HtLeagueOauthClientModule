@@ -66,7 +66,7 @@ return [
 $myProvider = $serviceLocator->get('HtLeagueOauthClientModule\Oauth2ClientManager')->get('my_provider');
 ```
 
-### For Oauth3
+### For Oauth1
 ```php
 // in config/module.config.php
 
