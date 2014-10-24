@@ -3,7 +3,7 @@ namespace HtLeagueOauthClientModule;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
-use League\OAuth2\Client\Provider\IdentityProvider;
+use League\OAuth2\Client\Provider\ProviderInterface;
 
 class Oauth2ClientManager extends AbstractPluginManager
 {
@@ -23,7 +23,7 @@ class Oauth2ClientManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof IdentityProvider) {
+        if ($plugin instanceof ProviderInterface) {
             return; // we're okay
         }
 

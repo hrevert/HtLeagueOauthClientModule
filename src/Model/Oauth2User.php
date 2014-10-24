@@ -1,7 +1,7 @@
 <?php
 namespace HtLeagueOauthClientModule\Model;
 
-use League\OAuth2\Client\Provider\User;
+use League\OAuth2\Client\Entity\User;
 
 class Oauth2User implements UserInterface
 {

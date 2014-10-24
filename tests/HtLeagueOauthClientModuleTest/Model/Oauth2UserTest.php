@@ -1,7 +1,7 @@
 <?php
 namespace HtLeagueOauthClientModuleTest\Model;
 
-use League\OAuth2\Client\Provider\User;
+use League\OAuth2\Client\Entity\User;
 use HtLeagueOauthClientModule\Model\Oauth2User;
 
 class Oauth2UserTest extends \PHPUnit_Framework_TestCase
