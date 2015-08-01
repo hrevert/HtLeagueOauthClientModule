@@ -24,17 +24,7 @@ return [
                 'clientSecret'  =>  'XXXXXXXX',
                 'redirectUri'   =>  'https://your-registered-redirect-uri/',
             ],
-            'eventbrite' => [
-                'clientId'      =>  'XXXXXXXX',
-                'clientSecret'  =>  'XXXXXXXX',
-                'redirectUri'   =>  'https://your-registered-redirect-uri/',
-            ],
             'instagram' => [
-                'clientId'      =>  'XXXXXXXX',
-                'clientSecret'  =>  'XXXXXXXX',
-                'redirectUri'   =>  'https://your-registered-redirect-uri/',
-            ],
-            'microsoft' => [
                 'clientId'      =>  'XXXXXXXX',
                 'clientSecret'  =>  'XXXXXXXX',
                 'redirectUri'   =>  'https://your-registered-redirect-uri/',
