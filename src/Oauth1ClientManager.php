@@ -31,12 +31,4 @@ class Oauth1ClientManager extends AbstractPluginManager
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function canonicalizeName($name)
-    {
-        return $name;
-    }
 }
