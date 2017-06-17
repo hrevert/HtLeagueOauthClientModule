@@ -6,8 +6,8 @@ use HtLeagueOauthClientModule\Module;
 class ModuleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers HtLeagueOauthClientModule\Module::getConfig
-     * @covers HtLeagueOauthClientModule\Module::getAutoloaderConfig
+     * @covers \HtLeagueOauthClientModule\Module::getConfig
+     * @covers \HtLeagueOauthClientModule\Module::getAutoloaderConfig
      */
     public function testConfigIsArray()
     {

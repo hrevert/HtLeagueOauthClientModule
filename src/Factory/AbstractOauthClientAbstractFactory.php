@@ -1,47 +1,48 @@
 <?php
 namespace HtLeagueOauthClientModule\Factory;
 
-use Zend\ServiceManager\AbstractFactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use HtLeagueOauthClientModule\Module;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
 abstract class AbstractOauthClientAbstractFactory implements AbstractFactoryInterface
 {
     /**
+     * @var array
+     */
+    private $config;
+
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
      * {@inheritDoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $oauth2ClientManager, $name, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName)
     {
-        $serviceLocator = $oauth2ClientManager->getServiceLocator();
-
-        $class = $this->getClass($name);
+        $class = $this->getClass($requestedName);
 
         if (!class_exists($class)) {
             return false;
         }
 
         $configKey = strtolower($requestedName);
-        $config = $serviceLocator->get('Config');
 
-        return isset($config[Module::CONFIG][$this->getConfigKey()][$configKey]);
+        return isset($this->config[$configKey]);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function createServiceWithName(ServiceLocatorInterface $oauth2ClientManager, $name, $requestedName)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $serviceLocator = $oauth2ClientManager->getServiceLocator();
-
-        $class = $this->getClass($name);
+        $class = $this->getClass($requestedName);
 
         $configKey = strtolower($requestedName);
-        $config = $serviceLocator->get('Config');
 
-        return new $class($config[Module::CONFIG][$this->getConfigKey()][$configKey]);
+        return new $class($this->config[$configKey]);
     }
-
-    abstract protected function getConfigKey();
 
     abstract protected function getClass($serviceName); 
 }

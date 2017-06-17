@@ -2,20 +2,18 @@
 namespace HtLeagueOauthClientModule;
 
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Config;
 use League\OAuth1\Client\Server\Server;
 
 class Oauth1ClientManager extends AbstractPluginManager
 {
     /**
      * Constructor
-     *
-     * @param ConfigInterface|null $config
+     * @param array $config
      */
-    public function __construct(ConfigInterface $config = null)
+    public function __construct(array $config)
     {
-        parent::__construct($config);
-        $this->addAbstractFactory(new Factory\Oauth1ClientAbstractFactory);
+        $this->addAbstractFactory(new Factory\Oauth1ClientAbstractFactory($config));
     }
 
     /**

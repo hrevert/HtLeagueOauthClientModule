@@ -13,11 +13,11 @@ class Oauth1ClientManagerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $serviceLocator->expects($this->once())
             ->method('get')
-            ->with('Config')
-            ->will($this->returnValue([Module::CONFIG => ['oauth1_client_manager' => []]]));
+            ->with('config')
+            ->will($this->returnValue([Module::CONFIG => ['oauth1_clients' => []]]));
 
         $factory = new Oauth1ClientManagerFactory;
 
-        $this->assertInstanceOf('HtLeagueOauthClientModule\Oauth1ClientManager', $factory->createService($serviceLocator));
+        $this->assertInstanceOf('HtLeagueOauthClientModule\Oauth1ClientManager', $factory($serviceLocator));
     }
 }

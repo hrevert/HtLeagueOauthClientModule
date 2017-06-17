@@ -2,20 +2,18 @@
 namespace HtLeagueOauthClientModule;
 
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
-use League\OAuth2\Client\Provider\ProviderInterface;
+use Zend\ServiceManager\Config;
+use League\OAuth2\Client\Provider\AbstractProvider;
 
 class Oauth2ClientManager extends AbstractPluginManager
 {
     /**
      * Constructor
-     *
-     * @param ConfigInterface|null $config
+     * @param array $config
      */
-    public function __construct(ConfigInterface $config = null)
+    public function __construct(array $config)
     {
-        parent::__construct($config);
-        $this->addAbstractFactory(new Factory\Oauth2ClientAbstractFactory);
+        $this->addAbstractFactory(new Factory\Oauth2ClientAbstractFactory($config));
     }
 
     /**
@@ -23,7 +21,7 @@ class Oauth2ClientManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof ProviderInterface) {
+        if ($plugin instanceof AbstractProvider) {
             return; // we're okay
         }
 
@@ -31,13 +29,5 @@ class Oauth2ClientManager extends AbstractPluginManager
             'Plugin of type %s is invalid; must implement League\OAuth2\Client\Provider\IdentityProvider',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function canonicalizeName($name)
-    {
-        return $name;
     }
 }

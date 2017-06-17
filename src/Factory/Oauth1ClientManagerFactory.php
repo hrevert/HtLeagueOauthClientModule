@@ -1,16 +1,14 @@
 <?php
 namespace HtLeagueOauthClientModule\Factory;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use HtLeagueOauthClientModule\Module;
+use Psr\Container\ContainerInterface;
+use HtLeagueOauthClientModule\ConfigProvider;
 use HtLeagueOauthClientModule\Oauth1ClientManager;
-use Zend\ServiceManager\Config;
 
-class Oauth1ClientManagerFactory implements FactoryInterface
+class Oauth1ClientManagerFactory
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container)
     {
-        return new Oauth1ClientManager(new Config($serviceLocator->get('Config')[Module::CONFIG]['oauth1_client_manager']));
+        return new Oauth1ClientManager($container->get('config')[ConfigProvider::CONFIG]['oauth1_clients']);
     }
 }

@@ -2,59 +2,33 @@
 namespace HtLeagueOauthClientModuleTest\Factory;
 
 use HtLeagueOauthClientModule\Factory\Oauth2ClientAbstractFactory;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use HtLeagueOauthClientModule\Module;
-use HtLeagueOauthClientModule\Oauth2ClientManager;
+use Interop\Container\ContainerInterface;
 
 class Oauth2ClientAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Oauth2ClientAbstractFactory
-     */
-    protected $abstractFactory;
-
-    public function setUp()
-    {
-        $this->abstractFactory = new Oauth2ClientAbstractFactory;
-    }
 
     public function testCantCreateServiceWhenClassDoesNotExist()
     {
-        $pluginManager = $this->getMock('HtLeagueOauthClientModule\Oauth2ClientManager');
+        $pluginManager = $this->getMock(ContainerInterface::class);
+        $abstractFactory = new Oauth2ClientAbstractFactory([]);
 
-        $this->assertFalse($this->abstractFactory->canCreateServiceWithName($pluginManager, 'FooBar', 'FooBar'));
+        $this->assertFalse($abstractFactory->canCreate($pluginManager, 'FooBar'));
     }
 
     public function testCantCreateServiceWhenProviderConfigDoesNotExist()
     {
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
-        $serviceLocator->expects($this->once())
-            ->method('get')
-            ->with('Config')
-            ->will($this->returnValue([]));
+        $pluginManager = $this->getMock(ContainerInterface::class);
+        $abstractFactory = new Oauth2ClientAbstractFactory([]);
 
-        $pluginManager = new Oauth2ClientManager;
-        $pluginManager->setServiceLocator($serviceLocator);
-
-        $this->assertFalse($this->abstractFactory->canCreateServiceWithName($pluginManager, 'Facebook', 'Facebook'));
+        $this->assertFalse($abstractFactory->canCreate($pluginManager, 'Facebook'));
     }
 
-    public function testCantCreateServiceWhenProviderConfigNotExists()
+    public function testCantCreateServiceWhenProviderConfigExists()
     {
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
-        $serviceLocator->expects($this->once())
-            ->method('get')
-            ->with('Config')
-            ->will($this->returnValue([Module::CONFIG => ['oauth2_clients' => ['facebook' =>  []]]]));
+        $pluginManager = $this->getMock(ContainerInterface::class);
 
-        $pluginManager = new Oauth2ClientManager;
-        $pluginManager->setServiceLocator($serviceLocator);
+        $abstractFactory = new Oauth2ClientAbstractFactory(['facebook' =>  []]);
 
-        $this->assertTrue($this->abstractFactory->canCreateServiceWithName($pluginManager, 'Facebook', 'Facebook'));
-    }
-
-    public function testCreateService()
-    {
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $this->assertTrue($abstractFactory->canCreate($pluginManager, 'Facebook'));
     }
 }
