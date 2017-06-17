@@ -4,18 +4,16 @@ namespace HtLeagueOauthClientModule;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements 
+class Module extends ConfigProvider implements
     AutoloaderProviderInterface,
     ConfigProviderInterface
 {
-    const CONFIG = 'ht_league_oauth_client';
-
     /**
      * {@inheritDoc}
      */
     public function getConfig()
     {
-        return include __DIR__ . '/../config/module.config.php';
+        return $this();
     }
 
     /**
