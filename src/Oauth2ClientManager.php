@@ -13,13 +13,14 @@ class Oauth2ClientManager extends AbstractPluginManager
      */
     public function __construct(array $config)
     {
+        $this->creationContext = $this;
         $this->addAbstractFactory(new Factory\Oauth2ClientAbstractFactory($config));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function validatePlugin($plugin)
+    public function validate($plugin)
     {
         if ($plugin instanceof AbstractProvider) {
             return; // we're okay
